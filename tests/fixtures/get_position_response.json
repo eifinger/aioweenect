@@ -1,0 +1,27 @@
+[
+    {
+        "id": "6076f215fafdd828ac3234db",
+        "battery": 100,
+        "cellid": "26201-106F-5F71",
+        "mcc": 0,
+        "mnc": 0,
+        "lac": 0,
+        "cid": 0,
+        "date_server": "2021-04-14T13:54:53+00:00",
+        "date_tracker": "2021-04-14T13:45:56+00:00",
+        "direction": 26,
+        "geofence_name": null,
+        "gsm": 12,
+        "last_message": "2021-04-14T13:54:53+00:00",
+        "latitude": 49.0268016,
+        "longitude": 6.2920783,
+        "pdop": 1.7,
+        "radius": 25,
+        "satellites": 5,
+        "speed": 37.2,
+        "type": "ALM-S",
+        "valid_signal": true,
+        "confidence": null,
+        "original_battery": 89
+    }
+]

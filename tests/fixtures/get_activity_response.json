@@ -1,0 +1,33 @@
+{
+    "distance": 31246.108984983595,
+    "min_speed": 0.005744533386774397,
+    "mean_speed": 2.7351468859448542,
+    "max_speed": 16.621609777122835,
+    "positions": [
+        {
+            "id": "6077d4e747874f1a9e84a360",
+            "battery": 96,
+            "cellid": "26203-B7AD-E77B",
+            "mcc": 0,
+            "mnc": 0,
+            "lac": 0,
+            "cid": 0,
+            "date_server": "2021-04-15T05:53:43+00:00",
+            "date_tracker": "2021-04-15T05:53:24+00:00",
+            "direction": 312,
+            "geofence_name": null,
+            "gsm": 17,
+            "last_message": null,
+            "latitude": 48.024191,
+            "longitude": 7.2642536,
+            "pdop": 99.9,
+            "radius": 31,
+            "satellites": 0,
+            "speed": 4.8,
+            "type": "CMD-T",
+            "valid_signal": true,
+            "confidence": null,
+            "original_battery": 74
+        }
+    ]
+}

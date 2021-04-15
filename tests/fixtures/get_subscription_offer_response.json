@@ -1,0 +1,401 @@
+{
+    "items": [
+        {
+            "id": 1,
+            "site": "weenect",
+            "code": "1_month_1_tracker",
+            "max_tracker_nb": 1,
+            "period": 1,
+            "amount": 790,
+            "amount_gbp": 715,
+            "currency": "EUR",
+            "amount_month": 790,
+            "amount_month_gbp": 715,
+            "saving": 0,
+            "saving_gbp": 0,
+            "has_levy": true,
+            "has_cb": false,
+            "free_days": 0,
+            "created_at": "2015-12-30T14:35:30",
+            "updated_at": "2015-12-30T14:35:30",
+            "option_offers": [
+                {
+                    "id": 1,
+                    "site": "weenect",
+                    "code": "sms",
+                    "int_1": 20,
+                    "sms": 20,
+                    "created_at": "2017-06-19T07:26:56",
+                    "updated_at": "2017-06-19T07:26:56",
+                    "price_offer": {
+                        "id": 1,
+                        "code": "sms",
+                        "fr": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        },
+                        "nl": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        },
+                        "de": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        },
+                        "en": {
+                            "amount": 176,
+                            "currency": "GBP"
+                        },
+                        "es": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        },
+                        "it": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        }
+                    }
+                },
+                {
+                    "id": 5,
+                    "site": "weenect",
+                    "code": "warranty",
+                    "int_1": 0,
+                    "sms": 0,
+                    "created_at": "2017-06-19T07:26:56",
+                    "updated_at": "2017-06-19T07:26:56",
+                    "price_offer": {
+                        "id": 2,
+                        "code": "warranty",
+                        "fr": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        },
+                        "nl": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        },
+                        "de": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        },
+                        "en": {
+                            "amount": 353,
+                            "currency": "GBP"
+                        },
+                        "es": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        },
+                        "it": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        }
+                    }
+                },
+                {
+                    "id": 10,
+                    "site": "weenect",
+                    "code": "premium_map",
+                    "int_1": 0,
+                    "sms": 0,
+                    "created_at": "2020-12-21T10:45:33.104420",
+                    "updated_at": "2020-12-21T10:45:33.104420",
+                    "price_offer": {
+                        "id": 6,
+                        "code": "premium_map",
+                        "fr": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        },
+                        "nl": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        },
+                        "de": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        },
+                        "en": {
+                            "amount": 90,
+                            "currency": "GBP"
+                        },
+                        "es": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        },
+                        "it": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "site": "weenect",
+            "code": "12_month_1_tracker",
+            "max_tracker_nb": 1,
+            "period": 12,
+            "amount": 5990,
+            "amount_gbp": 5500,
+            "currency": "EUR",
+            "amount_month": 500,
+            "amount_month_gbp": 450,
+            "saving": 3490,
+            "saving_gbp": 3080,
+            "has_levy": true,
+            "has_cb": true,
+            "free_days": 0,
+            "created_at": "2015-12-30T14:35:30",
+            "updated_at": "2015-12-30T14:35:30",
+            "option_offers": [
+                {
+                    "id": 3,
+                    "site": "weenect",
+                    "code": "sms",
+                    "int_1": 20,
+                    "sms": 20,
+                    "created_at": "2017-06-19T07:26:56",
+                    "updated_at": "2017-06-19T07:26:56",
+                    "price_offer": {
+                        "id": 1,
+                        "code": "sms",
+                        "fr": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        },
+                        "nl": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        },
+                        "de": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        },
+                        "en": {
+                            "amount": 176,
+                            "currency": "GBP"
+                        },
+                        "es": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        },
+                        "it": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        }
+                    }
+                },
+                {
+                    "id": 7,
+                    "site": "weenect",
+                    "code": "warranty",
+                    "int_1": 0,
+                    "sms": 0,
+                    "created_at": "2017-06-19T07:26:56",
+                    "updated_at": "2017-06-19T07:26:56",
+                    "price_offer": {
+                        "id": 2,
+                        "code": "warranty",
+                        "fr": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        },
+                        "nl": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        },
+                        "de": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        },
+                        "en": {
+                            "amount": 353,
+                            "currency": "GBP"
+                        },
+                        "es": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        },
+                        "it": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        }
+                    }
+                },
+                {
+                    "id": 9,
+                    "site": "weenect",
+                    "code": "premium_map",
+                    "int_1": 0,
+                    "sms": 0,
+                    "created_at": "2020-12-21T10:45:33.104420",
+                    "updated_at": "2020-12-21T10:45:33.104420",
+                    "price_offer": {
+                        "id": 6,
+                        "code": "premium_map",
+                        "fr": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        },
+                        "nl": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        },
+                        "de": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        },
+                        "en": {
+                            "amount": 90,
+                            "currency": "GBP"
+                        },
+                        "es": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        },
+                        "it": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "site": "weenect",
+            "code": "24_month_1_tracker",
+            "max_tracker_nb": 1,
+            "period": 24,
+            "amount": 8990,
+            "amount_gbp": 6483,
+            "currency": "EUR",
+            "amount_month": 350,
+            "amount_month_gbp": 270,
+            "saving": 9970,
+            "saving_gbp": 10677,
+            "has_levy": true,
+            "has_cb": true,
+            "free_days": 0,
+            "created_at": "2015-12-30T14:35:30",
+            "updated_at": "2015-12-30T14:35:30",
+            "option_offers": [
+                {
+                    "id": 4,
+                    "site": "weenect",
+                    "code": "sms",
+                    "int_1": 20,
+                    "sms": 20,
+                    "created_at": "2017-06-19T07:26:56",
+                    "updated_at": "2017-06-19T07:26:56",
+                    "price_offer": {
+                        "id": 1,
+                        "code": "sms",
+                        "fr": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        },
+                        "nl": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        },
+                        "de": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        },
+                        "en": {
+                            "amount": 176,
+                            "currency": "GBP"
+                        },
+                        "es": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        },
+                        "it": {
+                            "amount": 199,
+                            "currency": "EUR"
+                        }
+                    }
+                },
+                {
+                    "id": 8,
+                    "site": "weenect",
+                    "code": "warranty",
+                    "int_1": 0,
+                    "sms": 0,
+                    "created_at": "2017-06-19T07:26:56",
+                    "updated_at": "2017-06-19T07:26:56",
+                    "price_offer": {
+                        "id": 2,
+                        "code": "warranty",
+                        "fr": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        },
+                        "nl": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        },
+                        "de": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        },
+                        "en": {
+                            "amount": 353,
+                            "currency": "GBP"
+                        },
+                        "es": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        },
+                        "it": {
+                            "amount": 399,
+                            "currency": "EUR"
+                        }
+                    }
+                },
+                {
+                    "id": 11,
+                    "site": "weenect",
+                    "code": "premium_map",
+                    "int_1": 0,
+                    "sms": 0,
+                    "created_at": "2020-12-21T10:45:33.104420",
+                    "updated_at": "2020-12-21T10:45:33.104420",
+                    "price_offer": {
+                        "id": 6,
+                        "code": "premium_map",
+                        "fr": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        },
+                        "nl": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        },
+                        "de": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        },
+                        "en": {
+                            "amount": 90,
+                            "currency": "GBP"
+                        },
+                        "es": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        },
+                        "it": {
+                            "amount": 99,
+                            "currency": "EUR"
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "total": 3
+}
