@@ -17,5 +17,29 @@ $ pip install aioweenect
 ## Usage
 
 ```python
+from aioweenect import AioWeenect
 
+import asyncio
+
+USER = "<YOUR_USER>"
+PASSWORD = "<YOUR_PASSWORD>"
+
+
+async def main():
+    """Show example how to get location of your tracker."""
+    async with AioWeenect(username=USER, password=PASSWORD) as aioweenect:
+        trackers_response = await aioweenect.get_trackers()
+        tracker_id = trackers_response["items"][0]["id"]
+        tracker_name = trackers_response["items"][0]["name"]
+
+        position_response = await aioweenect.get_position(tracker_id=tracker_id)
+        lat = position_response[0]["latitude"]
+        lon = position_response[0]["longitude"]
+        last_message = position_response[0]["last_message"]
+        print(f"Location for {tracker_name}: lat: {lat}, lon: {lon}. Last message received: {last_message}")
+
+
+if __name__ == "__main__":
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
 ```
