@@ -17,7 +17,7 @@ classifiers = [
         "License :: OSI Approved :: MIT License"
     ]
 requires = [
-    "aiohttp==3.7.4"
+    "aiohttp>=3.7.4"
 ]
 requires-python=">=3.8"
 description-file="README.md"
