@@ -127,6 +127,28 @@ async def test_add_zone(aresponses):
 
 
 @pytest.mark.asyncio
+async def test_remove_zone(aresponses):
+    """Test removing a zone."""
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/user/login",
+        "POST",
+        response=load_json_fixture("login_response.json"),
+    )
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/mytracker/100000/zones/100000",
+        "DELETE",
+        aresponses.Response(text="", status=204),
+    )
+    async with aiohttp.ClientSession() as session:
+        aioweenect = AioWeenect(username="user", password="password", session=session)
+        response = await aioweenect.remove_zone(tracker_id=100000, zone_id=100000)
+
+        assert response is None
+
+
+@pytest.mark.asyncio
 async def test_get_position(aresponses):
     """Test getting position information."""
     aresponses.add(
@@ -194,6 +216,118 @@ async def test_get_trackers(aresponses):
         response = await aioweenect.get_trackers()
 
         assert response["items"][0]["user"]["firstname"] == "Test"
+
+
+@pytest.mark.asyncio
+async def test_set_update_interval(aresponses):
+    """Test setting the update interval."""
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/user/login",
+        "POST",
+        response=load_json_fixture("login_response.json"),
+    )
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/mytracker/100000/mode",
+        "POST",
+        aresponses.Response(text="", status=204),
+    )
+    async with aiohttp.ClientSession() as session:
+        aioweenect = AioWeenect(username="user", password="password", session=session)
+        response = await aioweenect.set_update_interval(
+            tracker_id=100000, update_interval="30M"
+        )
+
+        assert response is None
+
+
+@pytest.mark.asyncio
+async def test_activate_super_live(aresponses):
+    """Test activating super live mode."""
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/user/login",
+        "POST",
+        response=load_json_fixture("login_response.json"),
+    )
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/mytracker/100000/st-mode",
+        "POST",
+        aresponses.Response(text="", status=204),
+    )
+    async with aiohttp.ClientSession() as session:
+        aioweenect = AioWeenect(username="user", password="password", session=session)
+        response = await aioweenect.activate_super_live(tracker_id=100000)
+
+        assert response is None
+
+
+@pytest.mark.asyncio
+async def test_refresh_location(aresponses):
+    """Test requesting a location refresh."""
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/user/login",
+        "POST",
+        response=load_json_fixture("login_response.json"),
+    )
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/mytracker/100000/position/refresh",
+        "POST",
+        aresponses.Response(text="", status=204),
+    )
+    async with aiohttp.ClientSession() as session:
+        aioweenect = AioWeenect(username="user", password="password", session=session)
+        response = await aioweenect.refresh_location(tracker_id=100000)
+
+        assert response is None
+
+
+@pytest.mark.asyncio
+async def test_vibrate(aresponses):
+    """Test sending a vibration command."""
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/user/login",
+        "POST",
+        response=load_json_fixture("login_response.json"),
+    )
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/mytracker/100000/vibrate",
+        "POST",
+        aresponses.Response(text="", status=204),
+    )
+    async with aiohttp.ClientSession() as session:
+        aioweenect = AioWeenect(username="user", password="password", session=session)
+        response = await aioweenect.vibrate(tracker_id=100000)
+
+        assert response is None
+
+
+@pytest.mark.asyncio
+async def test_ring(aresponses):
+    """Test sending a ring command."""
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/user/login",
+        "POST",
+        response=load_json_fixture("login_response.json"),
+    )
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/mytracker/100000/ring",
+        "POST",
+        aresponses.Response(text="", status=204),
+    )
+    async with aiohttp.ClientSession() as session:
+        aioweenect = AioWeenect(username="user", password="password", session=session)
+        response = await aioweenect.ring(tracker_id=100000)
+
+        assert response is None
 
 
 def load_json_fixture(filename):

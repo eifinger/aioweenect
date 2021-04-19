@@ -195,6 +195,7 @@ class AioWeenect:
             raise WeenectError(response.status, {"message": contents.decode("utf8")})
 
         if response.status == 204:  # NO CONTENT
+            response.close()
             return None
 
         if "application/json" in content_type:
