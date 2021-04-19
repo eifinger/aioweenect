@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.2 (2021-04-19)
+### Fix
+* No-op release ([`f0baed9`](https://github.com/eifinger/aioweenect/commit/f0baed907cd8bcfc8e4cfa7c8691a067e44cdcbe))
+
 ## v1.0.1 (2021-04-18)
 ### Fix
 * Aiohttp>=3.7.4 ([`7fdb446`](https://github.com/eifinger/aioweenect/commit/7fdb4464c477f3973f1e0d19609cf91b3bcc0c68))
