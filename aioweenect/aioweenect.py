@@ -190,6 +190,20 @@ class AioWeenect:
             contents = await response.read()
             response.close()
 
+            if (
+                response.status == 401
+                and json.loads(contents.decode("utf8"))["error"] == "Invalid token"
+            ):
+                self._auth_token = None
+                return await self.authenticated_request(
+                    uri=uri,
+                    method=method,
+                    additional_headers=additional_headers,
+                    data=data,
+                    json_data=json_data,
+                    params=params,
+                )
+
             if content_type == "application/json":
                 raise WeenectError(response.status, json.loads(contents.decode("utf8")))
             raise WeenectError(response.status, {"message": contents.decode("utf8")})

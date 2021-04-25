@@ -12,6 +12,47 @@ API_VERSION = "/v4"
 
 
 @pytest.mark.asyncio
+async def test_get_user_with_invalid_token(aresponses):
+    """Test getting user information with a timed out token."""
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/user/login",
+        "POST",
+        response=load_json_fixture("login_response.json"),
+    )
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/user/100000",
+        "GET",
+        aresponses.Response(
+            body="{"
+            '"description": "Signature has expired",'
+            '"error": "Invalid token",'
+            '"status_code": 401'
+            "}",
+            status=401,
+        ),
+    )
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/user/login",
+        "POST",
+        response=load_json_fixture("login_response.json"),
+    )
+    aresponses.add(
+        API_HOST,
+        f"{API_VERSION}/user/100000",
+        "GET",
+        response=load_json_fixture("get_user_response.json"),
+    )
+    async with aiohttp.ClientSession() as session:
+        aioweenect = AioWeenect(username="user", password="password", session=session)
+        response = await aioweenect.get_user("100000")
+
+        assert response["postal_code"] == "55128"
+
+
+@pytest.mark.asyncio
 async def test_get_user(aresponses):
     """Test getting user information."""
     aresponses.add(
