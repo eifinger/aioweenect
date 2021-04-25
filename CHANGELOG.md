@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.1.0 (2021-04-25)
+### Feature
+* Automatically reauthenticate ([`7b586d0`](https://github.com/eifinger/aioweenect/commit/7b586d0567579980dddc731eabb530c17c548b60))
+
 ## v1.0.2 (2021-04-19)
 ### Fix
 * No-op release ([`f0baed9`](https://github.com/eifinger/aioweenect/commit/f0baed907cd8bcfc8e4cfa7c8691a067e44cdcbe))
