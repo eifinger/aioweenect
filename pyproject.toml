@@ -1,44 +1,66 @@
 [build-system]
-requires = ["flit"]
-build-backend = "flit.buildapi"
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
-[tool.flit.metadata]
-module = "aioweenect"
-dist-name = "aioweenect"
-author = "eifinger"
-author-email = "k.eifinger@googlemail.com"
-home-page = "http://github.com/eifinger/aioweenect"
+[tool.poetry]
+name = "aioweenect"
+version = "1.1.0"
+description = "Asynchronous Python client for the weenect API"
+license = "MIT"
+authors = ["Kevin Stillhammer <kevin.stillhammer@gmail.com>"]
+readme = "README.md"
+repository = "http://github.com/eifinger/aioweenect"
+keywords = [
+    "aiohttp",
+    "asyncio",
+    "weenect",
+    "weenect-api"
+]
 classifiers = [
-        "Intended Audience :: Developers",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 3",
-        "Topic :: Software Development :: Libraries :: Python Modules",
-        "License :: OSI Approved :: MIT License"
-    ]
-requires = [
-    "aiohttp>=3.7.4"
-]
-requires-python=">=3.8"
-description-file="README.md"
-
-[tool.flit.metadata.requires-extra]
-test = [
-    "aresponses==2.1.4",
-    "pytest==6.2.3",
-    "pytest-cov==2.11.1",
-    "pytest-asyncio==0.14.0",
-    "pylint==2.12.2",
-    "tox==3.23.0",
-    "codecov==2.1.11",
-    "flake8==3.9.0",
-    "mypy==0.812",
-    "pre-commit==2.12.0",
-    "black==21.12b0"
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: MIT License"
 ]
 
-[tool.coverage.paths]
-source = ["src"]
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+aresponses = "2.1.4"
+black = "21.4b2"
+blacken-docs = "^1.12.0"
+coverage = {version = "^6.2", extras = ["toml"]}
+bandit = "^1.7.0"
+codecov = "2.1.11"
+codespell = "^2.1.0"
+darglint = "^1.8.1"
+flake8 = "3.9.0"
+flake8-bandit = "^2.1.2"
+flake8-bugbear = "^21.11.29"
+flake8-builtins = "^1.5.3"
+flake8-comprehensions = "^3.7.0"
+flake8-docstrings = "^1.6.0"
+flake8-eradicate = "^1.2.0"
+flake8-markdown = "^0.3.0"
+flake8-simplify = "^0.14.2"
+mypy = "0.812"
+pre-commit = "2.12.0"
+pre-commit-hooks = "^4.1.0"
+pytest = "6.2.3"
+pytest-cov = "2.11.1"
+pytest-asyncio = "0.14.0"
+pytest-mock = "3.5.1"
+pylint = "2.8.2"
+pyupgrade = "^2.30.1"
+safety = "^1.10.3"
+vulture = "^2.3"
+yamllint = "^1.26.3"
+
+[tool.pytest.ini_options]
+addopts = "--cov --cov-report term-missing --cov-report xml --cov=aioweenect tests"
 
 [tool.coverage.report]
 show_missing = true
@@ -48,9 +70,11 @@ exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:"]
 profile = "black"
 multi_line_output = 3
 
-[tool.pytest.ini_options]
-addopts = "--cov"
+[tool.vulture]
+min_confidence = 80
+paths = ["aioweenect", "tests"]
 
 [tool.semantic_release]
-version_variable="aioweenect/__init__.py:__version__"
-build_command="pip install flit && flit build"
+version_toml = "pyproject.toml:tool.poetry.version"
+build_command = "pip install poetry && poetry build"
+commit_subject = "chore(release): {version}"

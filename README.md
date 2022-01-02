@@ -36,7 +36,9 @@ async def main():
         lat = position_response[0]["latitude"]
         lon = position_response[0]["longitude"]
         last_message = position_response[0]["last_message"]
-        print(f"Location for {tracker_name}: lat: {lat}, lon: {lon}. Last message received: {last_message}")
+        print(
+            f"Location for {tracker_name}: lat: {lat}, lon: {lon}. Last message received: {last_message}"
+        )
 
 
 if __name__ == "__main__":

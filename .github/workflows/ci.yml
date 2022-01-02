@@ -1,7 +1,8 @@
 ---
 name: CI
 
-on: 
+# yamllint disable-line rule:truthy
+on:
   push:
     branches:
       - master
@@ -19,18 +20,17 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
       - name: Install dependencies
         run: |
-          make init
+          poetry install
       - name: Lint
         run: |
-          make lint
-      - name: Type checking with mypy
-        run: |
-          make typing
+          poetry run pre-commit run --all-files
       - name: Test coverage
         run: |
-          make coverage
+          poetry run pytest
       - uses: codecov/codecov-action@v2.1.0
         with:
           token: ${{secrets.CODECOV}}

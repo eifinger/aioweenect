@@ -13,5 +13,3 @@ __all__ = [
     "WeenectError",
     "ZoneNotificationMode",
 ]
-
-__version__ = "1.1.0"

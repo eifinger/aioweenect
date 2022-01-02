@@ -1,6 +1,7 @@
 """Tests for `aioweenect.aioweenect`."""
 import json
 import os
+from typing import Any
 
 import aiohttp
 import pytest
@@ -161,7 +162,11 @@ async def test_add_zone(aresponses):
     async with aiohttp.ClientSession() as session:
         aioweenect = AioWeenect(username="user", password="password", session=session)
         response = await aioweenect.add_zone(
-            tracker_id=100000, address="test", latitude=90.0, longitude=1.0, name="test"
+            tracker_id="100000",
+            address="test",
+            latitude=90.0,
+            longitude=1.0,
+            name="test",
         )
 
         assert response["number"] == 186177
@@ -184,7 +189,7 @@ async def test_remove_zone(aresponses):
     )
     async with aiohttp.ClientSession() as session:
         aioweenect = AioWeenect(username="user", password="password", session=session)
-        response = await aioweenect.remove_zone(tracker_id=100000, zone_id=100000)
+        response = await aioweenect.remove_zone(tracker_id="100000", zone_id="100000")
 
         assert response is None
 
@@ -206,7 +211,11 @@ async def test_get_position(aresponses):
     )
     async with aiohttp.ClientSession() as session:
         aioweenect = AioWeenect(username="user", password="password", session=session)
-        response = await aioweenect.get_position("100000")
+        response = await aioweenect.get_position(
+            tracker_id="100000",
+            start="2019-04-14T23:05:00.000Z",
+            end="2019-04-15T23:05:00.000Z",
+        )
 
         assert response[0]["latitude"] == 49.0268016
 
@@ -277,7 +286,7 @@ async def test_set_update_interval(aresponses):
     async with aiohttp.ClientSession() as session:
         aioweenect = AioWeenect(username="user", password="password", session=session)
         response = await aioweenect.set_update_interval(
-            tracker_id=100000, update_interval="30M"
+            tracker_id="100000", update_interval="30M"
         )
 
         assert response is None
@@ -300,7 +309,7 @@ async def test_activate_super_live(aresponses):
     )
     async with aiohttp.ClientSession() as session:
         aioweenect = AioWeenect(username="user", password="password", session=session)
-        response = await aioweenect.activate_super_live(tracker_id=100000)
+        response = await aioweenect.activate_super_live(tracker_id="100000")
 
         assert response is None
 
@@ -322,7 +331,7 @@ async def test_refresh_location(aresponses):
     )
     async with aiohttp.ClientSession() as session:
         aioweenect = AioWeenect(username="user", password="password", session=session)
-        response = await aioweenect.refresh_location(tracker_id=100000)
+        response = await aioweenect.refresh_location(tracker_id="100000")
 
         assert response is None
 
@@ -344,7 +353,7 @@ async def test_vibrate(aresponses):
     )
     async with aiohttp.ClientSession() as session:
         aioweenect = AioWeenect(username="user", password="password", session=session)
-        response = await aioweenect.vibrate(tracker_id=100000)
+        response = await aioweenect.vibrate(tracker_id="100000")
 
         assert response is None
 
@@ -366,12 +375,12 @@ async def test_ring(aresponses):
     )
     async with aiohttp.ClientSession() as session:
         aioweenect = AioWeenect(username="user", password="password", session=session)
-        response = await aioweenect.ring(tracker_id=100000)
+        response = await aioweenect.ring(tracker_id="100000")
 
         assert response is None
 
 
-def load_json_fixture(filename):
+def load_json_fixture(filename: str) -> Any:
     """Load a fixture."""
     path = os.path.join(os.path.dirname(__file__), "fixtures", filename)
     with open(path, encoding="utf-8") as fptr:

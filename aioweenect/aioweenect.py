@@ -36,11 +36,11 @@ class AioWeenect:
         Class constructor for setting up an AioWeenect object to
         communicate with the weenect API.
         Args:
-            password: Password for HTTP authentification.
+            password: Password for HTTP authentication.
             request_timeout: Max timeout to wait for a response from the API.
             session: Optional, shared, aiohttp client session.
             user_agent: Defaults to AioWeenect/<version>.
-            username: Username for HTTP authentification.
+            username: Username for HTTP authentication.
         """
         self._session = session
         self._close_session = False
@@ -167,7 +167,7 @@ class AioWeenect:
             self._close_session = True
 
         try:
-            with async_timeout.timeout(self.request_timeout):
+            async with async_timeout.timeout(self.request_timeout):
                 response = await self._session.request(
                     method,
                     url,
@@ -238,7 +238,7 @@ class AioWeenect:
             uri="myuser"
         )
 
-    async def get_subscription_offers(self) -> list[dict[str, Any]]:
+    async def get_subscription_offers(self) -> dict[str, Any]:
         """Get subscription offers.
         Returns:
             A list containing subscription offers.
@@ -366,13 +366,18 @@ class AioWeenect:
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
         """
+        params = {}
+        if start is not None:
+            params["start"] = start
+        if end is not None:
+            params["end"] = end
         return await self.authenticated_request(  # type: ignore[no-any-return]
-            uri=f"mytracker/{tracker_id}/position"
+            uri=f"mytracker/{tracker_id}/position", params=params
         )
 
     async def get_activity(
         self, tracker_id: str, start: str, end: str | None = None
-    ) -> list[dict[str, Any]]:
+    ) -> dict[str, Any]:
         """Get activity data for the tracker id.
         Args:
             tracker_id: The id of the tracker.
@@ -386,11 +391,16 @@ class AioWeenect:
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
         """
+        params = {}
+        if start is not None:
+            params["start"] = start
+        if end is not None:
+            params["end"] = end
         return await self.authenticated_request(  # type: ignore[no-any-return]
-            uri=f"mytracker/{tracker_id}/activity"
+            uri=f"mytracker/{tracker_id}/activity", params=params
         )
 
-    async def get_trackers(self) -> list[dict[str, Any]]:
+    async def get_trackers(self) -> dict[str, Any]:
         """Get all available trackers.
         Returns:
             All available trackers.
