@@ -129,23 +129,11 @@ repos:
         entry: poetry check
         pass_filenames: false
         always_run: true
-      - id: prettier
-        name: 💄 Ensuring files are prettier
-        language: system
-        types: [yaml, json, markdown]
-        entry: npm run prettier
-        pass_filenames: false
       - id: pylint
         name: 🌟 Starring code with pylint
         language: system
         types: [python]
         entry: poetry run pylint
-      - id: pyright
-        name: 🆎 Static type checking using pyright
-        language: system
-        types: [python]
-        entry: npm run pyright
-        pass_filenames: false
       - id: pytest
         name: 🧪 Running tests and test coverage with pytest
         language: system
@@ -176,3 +164,17 @@ repos:
         language: system
         types: [yaml]
         entry: poetry run yamllint
+      - id: pyright
+        name: 🆎 Static type checking using pyright
+        entry: pyright
+        language: node
+        types: [python]
+        pass_filenames: false
+        additional_dependencies: ['pyright@1.1.99']
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: "v2.5.1"
+    hooks:
+      - id: prettier
+        name: 💄 Ensuring files are prettier
+        types: [yaml, json, markdown]
