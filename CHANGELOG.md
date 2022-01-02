@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.1.1 (2022-01-02)
+### Fix
+* Use start/end for position/activity ([`74d3cdc`](https://github.com/eifinger/aioweenect/commit/74d3cdc15186d4bc193a1777340cd1b5bf51775a))
+
 ## v1.1.0 (2021-04-25)
 ### Feature
 * Automatically reauthenticate ([`7b586d0`](https://github.com/eifinger/aioweenect/commit/7b586d0567579980dddc731eabb530c17c548b60))

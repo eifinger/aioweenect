@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "aioweenect"
-version = "1.1.0"
+version = "1.1.1"
 description = "Asynchronous Python client for the weenect API"
 license = "MIT"
 authors = ["Kevin Stillhammer <kevin.stillhammer@gmail.com>"]
