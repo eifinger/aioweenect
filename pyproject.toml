@@ -32,7 +32,7 @@ python = "^3.8"
 aresponses = "2.1.4"
 black = "21.12b0"
 blacken-docs = "^1.12.0"
-coverage = {version = "^6.2", extras = ["toml"]}
+coverage = {version = "^6.3", extras = ["toml"]}
 bandit = "^1.7.0"
 codecov = "2.1.12"
 codespell = "^2.1.0"
