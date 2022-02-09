@@ -58,7 +58,7 @@ jobs:
     needs:
       - build
       - security
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2.4.0
         with:
