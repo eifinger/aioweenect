@@ -763,7 +763,7 @@ dev = ["pre-commit", "tox", "pytest-asyncio"]
 
 [[package]]
 name = "pyupgrade"
-version = "2.34.0"
+version = "2.37.1"
 description = "A tool to automatically upgrade syntax for newer versions."
 category = "dev"
 optional = false
@@ -987,7 +987,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "2dcd11ddc5346f3e76b481f576536607d9b484b057754ec8ca13334bf94779d3"
+content-hash = "6d713767746f7900699c03891a118326019896fa79e5b78305d3592a812e616b"
 
 [metadata.files]
 aiohttp = []
