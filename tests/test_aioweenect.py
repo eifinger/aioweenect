@@ -285,11 +285,7 @@ async def test_set_update_interval(aresponses):
     )
     async with aiohttp.ClientSession() as session:
         aioweenect = AioWeenect(username="user", password="password", session=session)
-        response = await aioweenect.set_update_interval(
-            tracker_id="100000", update_interval="30M"
-        )
-
-        assert response is None
+        await aioweenect.set_update_interval(tracker_id="100000", update_interval="30M")
 
 
 @pytest.mark.asyncio
@@ -309,9 +305,7 @@ async def test_activate_super_live(aresponses):
     )
     async with aiohttp.ClientSession() as session:
         aioweenect = AioWeenect(username="user", password="password", session=session)
-        response = await aioweenect.activate_super_live(tracker_id="100000")
-
-        assert response is None
+        await aioweenect.activate_super_live(tracker_id="100000")
 
 
 @pytest.mark.asyncio
@@ -331,9 +325,7 @@ async def test_refresh_location(aresponses):
     )
     async with aiohttp.ClientSession() as session:
         aioweenect = AioWeenect(username="user", password="password", session=session)
-        response = await aioweenect.refresh_location(tracker_id="100000")
-
-        assert response is None
+        await aioweenect.refresh_location(tracker_id="100000")
 
 
 @pytest.mark.asyncio
@@ -353,9 +345,7 @@ async def test_vibrate(aresponses):
     )
     async with aiohttp.ClientSession() as session:
         aioweenect = AioWeenect(username="user", password="password", session=session)
-        response = await aioweenect.vibrate(tracker_id="100000")
-
-        assert response is None
+        await aioweenect.vibrate(tracker_id="100000")
 
 
 @pytest.mark.asyncio
@@ -375,9 +365,7 @@ async def test_ring(aresponses):
     )
     async with aiohttp.ClientSession() as session:
         aioweenect = AioWeenect(username="user", password="password", session=session)
-        response = await aioweenect.ring(tracker_id="100000")
-
-        assert response is None
+        await aioweenect.ring(tracker_id="100000")
 
 
 def load_json_fixture(filename: str) -> Any:
