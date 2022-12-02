@@ -765,7 +765,7 @@ dev = ["pre-commit", "pytest-asyncio", "tox"]
 
 [[package]]
 name = "pyupgrade"
-version = "3.2.3"
+version = "3.3.0"
 description = "A tool to automatically upgrade syntax for newer versions."
 category = "dev"
 optional = false
@@ -1000,7 +1000,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "ecd12e62c10a085b9567a6f535574d48523783c904285787007699fcefced709"
+content-hash = "3cfdc5d459d3e59cae76cf257d31854d61969c84aea3d2a5b2348e3e6be9f25a"
 
 [metadata.files]
 aiohttp = [
@@ -1586,8 +1586,8 @@ pytest-mock = [
     {file = "pytest_mock-3.10.0-py3-none-any.whl", hash = "sha256:f4c973eeae0282963eb293eb173ce91b091a79c1334455acfac9ddee8a1c784b"},
 ]
 pyupgrade = [
-    {file = "pyupgrade-3.2.3-py2.py3-none-any.whl", hash = "sha256:f831c56b44c3fe70273303fe5a28f89e9c23d5e91b0fabb34153c11cdddd0ee1"},
-    {file = "pyupgrade-3.2.3.tar.gz", hash = "sha256:bfded7b81c478dcabb356fe6a1877dd8729ec9b70669c5d2d669f81d0e076cac"},
+    {file = "pyupgrade-3.3.0-py2.py3-none-any.whl", hash = "sha256:42e0388edfef61a4bdab109e65e63e31300f484f2a2d026af91cfae457f1d74d"},
+    {file = "pyupgrade-3.3.0.tar.gz", hash = "sha256:2e494ea16a07b8f5c98d1b0e79cf2107fb561b58dac5066e312f64caf4505ad3"},
 ]
 pyyaml = [
     {file = "PyYAML-6.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:d4db7c7aef085872ef65a8fd7d6d09a14ae91f691dec3e87ee5ee0539d516f53"},
@@ -1793,6 +1793,7 @@ wrapt = [
     {file = "wrapt-1.14.1.tar.gz", hash = "sha256:380a85cf89e0e69b7cfbe2ea9f765f004ff419f34194018a6827ac0e3edfed4d"},
 ]
 yamllint = [
+    {file = "yamllint-1.28.0-py2.py3-none-any.whl", hash = "sha256:89bb5b5ac33b1ade059743cf227de73daa34d5e5a474b06a5e17fc16583b0cf2"},
     {file = "yamllint-1.28.0.tar.gz", hash = "sha256:9e3d8ddd16d0583214c5fdffe806c9344086721f107435f68bad990e5a88826b"},
 ]
 yarl = [
