@@ -33,7 +33,7 @@ jobs:
       - name: Test coverage
         run: |
           poetry run pytest
-      - uses: codecov/codecov-action@v3.1.1
+      - uses: codecov/codecov-action@v3.1.4
         with:
           token: ${{secrets.CODECOV}}
           file: ./coverage.xml
