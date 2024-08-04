@@ -1,14 +1,15 @@
 """A module to query the weenect web api."""
+
 from __future__ import annotations
 
-import asyncio
 import json
 import socket
 from importlib import metadata
-from typing import Any, Mapping
+from typing import Any
+from collections.abc import Mapping
+import asyncio
 
 import aiohttp
-import async_timeout
 from yarl import URL
 
 from .exceptions import WeenectConnectionError, WeenectError
@@ -34,6 +35,7 @@ class AioWeenect:
         user_agent: str | None = None,
     ) -> None:
         """Initialize connection with weenect.
+
         Class constructor for setting up an AioWeenect object to
         communicate with the weenect API.
         Args:
@@ -42,6 +44,7 @@ class AioWeenect:
             session: Optional, shared, aiohttp client session.
             user_agent: Defaults to AioWeenect/<version>.
             username: Username for HTTP authentication.
+
         """
         self._session = session
         self._close_session = False
@@ -57,6 +60,7 @@ class AioWeenect:
 
     async def login(self) -> None:
         """Log into the weenect API.
+
         Retrieves a JSON web token and stores it.
         It will be attached to every request.
         Raises:
@@ -64,6 +68,7 @@ class AioWeenect:
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         response = await self.request(
             uri="user/login",
@@ -72,9 +77,7 @@ class AioWeenect:
         )
 
         if response is None:
-            raise WeenectConnectionError(
-                "Error occurred while authenticating with the weenect API."
-            )
+            raise WeenectConnectionError("Error occurred while authenticating with the weenect API.")
 
         jwt = response["access_token"]
         self._auth_token = f"JWT {jwt}"
@@ -89,23 +92,28 @@ class AioWeenect:
         params: Mapping[str, str] | None = None,
     ) -> Any:
         """Handle a request to the weenect API.
+
         Makes sure the client is authenticated and
         makes a request against the weenect API and handles the response.
         Args:
             uri: The request URI on the weenect API to call.
             method: HTTP method to use for the request; e.g., GET, POST.
+            additional_headers: Additional headers to send with the request.
             data: RAW HTTP request data to send with the request.
             json_data: Dictionary of data to send as JSON with the request.
             params: Mapping of request parameters to send with the request.
+
         Returns:
             The response from the API. In case the response is a JSON response,
             the method will return a decoded JSON response as a Python
             dictionary. In other cases, it will return the RAW text response.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         if self._auth_token is None:
             await self.login()
@@ -128,22 +136,27 @@ class AioWeenect:
         params: Mapping[str, str] | None = None,
     ) -> Any:
         """Handle a request to the weenect API.
+
         Make a request against the weenect API and handles the response.
         Args:
             uri: The request URI on the weenect API to call.
             method: HTTP method to use for the request; e.g., GET, POST.
+            additional_headers: Additional headers to send with the request.
             data: RAW HTTP request data to send with the request.
             json_data: Dictionary of data to send as JSON with the request.
             params: Mapping of request parameters to send with the request.
+
         Returns:
             The response from the API. In case the response is a JSON response,
             the method will return a decoded JSON response as a Python
             dictionary. In other cases, it will return the RAW text response.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         url = URL.build(scheme=SCHEME, host=API_HOST, path=API_VERSION) / uri
 
@@ -167,33 +180,28 @@ class AioWeenect:
             self._close_session = True
 
         try:
-            async with async_timeout.timeout(self.request_timeout):
-                response = await self._session.request(
+            response = await asyncio.wait_for(
+                self._session.request(
                     method,
                     url,
                     data=data,
                     json=json_data,
                     params=params,
                     headers=headers,
-                )
-        except asyncio.TimeoutError as exception:
-            raise WeenectConnectionError(
-                "Timeout occurred while connecting to the weenect API."
-            ) from exception
+                ),
+                timeout=self.request_timeout,
+            )
+        except TimeoutError as exception:
+            raise WeenectConnectionError("Timeout occurred while connecting to the weenect API.") from exception
         except (aiohttp.ClientError, socket.gaierror) as exception:
-            raise WeenectConnectionError(
-                "Error occurred while communicating with the weenect API."
-            ) from exception
+            raise WeenectConnectionError("Error occurred while communicating with the weenect API.") from exception
 
         content_type = response.headers.get("Content-Type", "")
         if response.status // 100 in [4, 5]:
             contents = await response.read()
             response.close()
 
-            if (
-                response.status == 401
-                and json.loads(contents.decode("utf8"))["error"] == "Invalid token"
-            ):
+            if response.status == 401 and json.loads(contents.decode("utf8"))["error"] == "Invalid token":
                 self._auth_token = None
                 return await self.authenticated_request(
                     uri=uri,
@@ -220,15 +228,19 @@ class AioWeenect:
 
     async def get_user(self, user_id: str | None = None) -> dict[str, Any]:
         """Get the user information.
+
         Args:
             user_id: The id of the user.
+
         Returns:
             The response from the API.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         if user_id is not None:
             return await self.authenticated_request(  # type: ignore[no-any-return]
@@ -240,13 +252,16 @@ class AioWeenect:
 
     async def get_subscription_offers(self) -> dict[str, Any]:
         """Get subscription offers.
+
         Returns:
             A list containing subscription offers.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         return await self.authenticated_request(  # type: ignore[no-any-return]
             uri="subscriptionoffer"
@@ -254,15 +269,19 @@ class AioWeenect:
 
     async def get_subscription(self, subscription_id: str) -> dict[str, Any]:
         """Get subscription information.
+
         Args:
             subscription_id: The id of the subscription.
+
         Returns:
             Subscription information.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         return await self.authenticated_request(  # type: ignore[no-any-return]
             uri=f"mysubscription/{subscription_id}"
@@ -270,15 +289,19 @@ class AioWeenect:
 
     async def get_zones(self, tracker_id: str) -> dict[str, Any]:
         """Get all available zones for this tracker.
+
         Args:
             tracker_id: The id of the tracker.
+
         Returns:
             All available zones for the tracker_id.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         return await self.authenticated_request(  # type: ignore[no-any-return]
             uri=f"mytracker/{tracker_id}/zones"
@@ -297,6 +320,7 @@ class AioWeenect:
         mode: ZoneNotificationMode = ZoneNotificationMode.ENTER_AND_EXIT,
     ) -> dict[str, Any]:
         """Add a zone for this tracker.
+
         Args:
             tracker_id: The id of the tracker.
             address: The address of the zone center.
@@ -311,11 +335,13 @@ class AioWeenect:
 
         Returns:
             The created zone.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         data = {
             "active": active,
@@ -337,14 +363,17 @@ class AioWeenect:
         zone_id: str,
     ) -> dict[str, Any]:
         """Remove a zone for this tracker.
+
         Args:
             tracker_id: The id of the tracker.
             zone_id: The id of the zone.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         return await self.authenticated_request(  # type: ignore[no-any-return]
             uri=f"mytracker/{tracker_id}/zones/{zone_id}", method="DELETE"
@@ -354,17 +383,21 @@ class AioWeenect:
         self, tracker_id: str, start: str | None = None, end: str | None = None
     ) -> list[dict[str, Any]]:
         """Get position data for the tracker id.
+
         Args:
             tracker_id: The id of the tracker.
             start: Optional, only return data after this timestamp.
             end: Optional, only return data before this timestamp.
+
         Returns:
             A list containing location dictionaries.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         params = {}
         if start is not None:
@@ -375,21 +408,23 @@ class AioWeenect:
             uri=f"mytracker/{tracker_id}/position", params=params
         )
 
-    async def get_activity(
-        self, tracker_id: str, start: str, end: str | None = None
-    ) -> dict[str, Any]:
+    async def get_activity(self, tracker_id: str, start: str, end: str | None = None) -> dict[str, Any]:
         """Get activity data for the tracker id.
+
         Args:
             tracker_id: The id of the tracker.
             start: Optional, only return data after this timestamp.
             end: Optional, only return data before this timestamp.
+
         Returns:
             A list containing location dictionaries.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         params = {}
         if start is not None:
@@ -402,13 +437,16 @@ class AioWeenect:
 
     async def get_trackers(self) -> dict[str, Any]:
         """Get all available trackers.
+
         Returns:
             All available trackers.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         return await self.authenticated_request(  # type: ignore[no-any-return]
             uri="mytracker"
@@ -420,14 +458,17 @@ class AioWeenect:
         update_interval: str,
     ) -> None:
         """Set the update interval for this tracker id.
+
         Args:
             tracker_id: The id of the tracker.
             update_interval: The new update interval.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         return await self.authenticated_request(  # type: ignore[no-any-return]
             uri=f"mytracker/{tracker_id}/mode",
@@ -440,13 +481,16 @@ class AioWeenect:
         tracker_id: str,
     ) -> None:
         """Activate the super live mode for this tracker id.
+
         Args:
             tracker_id: The id of the tracker.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         return await self.authenticated_request(  # type: ignore[no-any-return]
             uri=f"mytracker/{tracker_id}/st-mode", method="POST"
@@ -457,13 +501,16 @@ class AioWeenect:
         tracker_id: str,
     ) -> None:
         """Request a position refresh for this tracker id.
+
         Args:
             tracker_id: The id of the tracker.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         return await self.authenticated_request(  # type: ignore[no-any-return]
             uri=f"mytracker/{tracker_id}/position/refresh", method="POST"
@@ -474,13 +521,16 @@ class AioWeenect:
         tracker_id: str,
     ) -> None:
         """Send a vibration command for this tracker id.
+
         Args:
             tracker_id: The id of the tracker.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         return await self.authenticated_request(  # type: ignore[no-any-return]
             uri=f"mytracker/{tracker_id}/vibrate", method="POST"
@@ -491,13 +541,16 @@ class AioWeenect:
         tracker_id: str,
     ) -> None:
         """Send a ring command for this tracker id.
+
         Args:
             tracker_id: The id of the tracker.
+
         Raises:
             WeenectConnectionError: An error occurred while communicating
                 with the weenect API (connection issues).
             WeenectHomeError: An error occurred while processing the
                 response from the weenect API (invalid data).
+
         """
         return await self.authenticated_request(  # type: ignore[no-any-return]
             uri=f"mytracker/{tracker_id}/ring", method="POST"
@@ -509,15 +562,9 @@ class AioWeenect:
             await self._session.close()
 
     async def __aenter__(self) -> AioWeenect:
-        """Async enter.
-        Returns:
-            The AioWeenect object.
-        """
+        """Async enter."""
         return self
 
     async def __aexit__(self, *_exc_info) -> None:
-        """Async exit.
-        Args:
-            _exc_info: Exec type.
-        """
+        """Async exit."""
         await self.close()

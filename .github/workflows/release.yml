@@ -1,0 +1,33 @@
+---
+name: Release
+
+"on":
+  release:
+    types:
+      - published
+
+jobs:
+  release_to_pypi:
+    name: Release to PyPI
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/aioweenect/
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Search and replace version
+        run: |
+          VERSION="${TAG_NAME//v/}"
+          sed -i "s/1\.0+versionplaceholder\.1/$VERSION/" pyproject.toml
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+      - uses: eifinger/setup-rye@v4
+        with:
+          enable-cache: true
+      - name: Build
+        run: |
+          rye build
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@ec4db0b4ddc65acdf4bff5fa45ac92d78b56bdf0

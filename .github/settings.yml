@@ -19,6 +19,8 @@ labels:
     color: "fbca04"
   - name: "Bug"
     color: "b60205"
+  - name: "Bugfix"
+    color: "b60205"
   - name: "Won't Fix"
     color: "ffffff"
   - name: "Enhancement"
