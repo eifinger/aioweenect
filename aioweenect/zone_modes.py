@@ -1,4 +1,5 @@
 """Available notification modes for zones."""
+
 from enum import Enum
 
 

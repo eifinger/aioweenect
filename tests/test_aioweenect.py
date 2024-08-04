@@ -1,4 +1,5 @@
 """Tests for `aioweenect.aioweenect`."""
+
 import json
 import os
 from typing import Any
@@ -26,11 +27,7 @@ async def test_get_user_with_invalid_token(aresponses):
         f"{API_VERSION}/user/100000",
         "GET",
         aresponses.Response(
-            body="{"
-            '"description": "Signature has expired",'
-            '"error": "Invalid token",'
-            '"status_code": 401'
-            "}",
+            body="{" '"description": "Signature has expired",' '"error": "Invalid token",' '"status_code": 401' "}",
             status=401,
         ),
     )
@@ -94,10 +91,7 @@ async def test_get_subscription_offers(aresponses):
         aioweenect = AioWeenect(username="user", password="password", session=session)
         response = await aioweenect.get_subscription_offers()
 
-        assert (
-            response["items"][0]["option_offers"][0]["price_offer"]["de"]["amount"]
-            == 199
-        )
+        assert response["items"][0]["option_offers"][0]["price_offer"]["de"]["amount"] == 199
 
 
 @pytest.mark.asyncio
