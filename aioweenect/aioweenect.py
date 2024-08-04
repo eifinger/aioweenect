@@ -19,6 +19,7 @@ APP_HOST = "my.weenect.com"
 APP_URL = str(URL.build(scheme=SCHEME, host=APP_HOST))
 API_HOST = "apiv4.weenect.com"
 API_VERSION = "/v4"
+LIB_VERSION = metadata.version(__package__)
 
 
 class AioWeenect:
@@ -52,8 +53,7 @@ class AioWeenect:
         self.user_agent = user_agent
 
         if user_agent is None:
-            version = metadata.version(__package__)
-            self.user_agent = f"AioWeenect/{version}"
+            self.user_agent = f"AioWeenect/{LIB_VERSION}"
 
     async def login(self) -> None:
         """Log into the weenect API.
