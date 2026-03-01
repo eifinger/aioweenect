@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import socket
 from importlib import metadata
-from typing import Any
+from typing import Any, cast
 from collections.abc import Mapping
 import asyncio
 
@@ -189,7 +189,7 @@ class AioWeenect:
                     data=data,
                     json=json_data,
                     params=params,
-                    headers=headers,
+                    headers=cast(dict[str, str], headers),
                 ),
                 timeout=self.request_timeout,
             )
