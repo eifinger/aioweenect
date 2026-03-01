@@ -169,6 +169,8 @@ class AioWeenect:
             "x-app-type": "userspace",
             "DNT": "1",
         }
+        if method == "POST":
+            headers["Content-Type"] = "application/json"
         if self._auth_token is not None:
             headers.update({"Authorization": self._auth_token})
 
