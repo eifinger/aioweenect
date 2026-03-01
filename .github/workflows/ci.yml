@@ -19,14 +19,14 @@ jobs:
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.3
       - uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b  # v7.3.0
-      - name: Cache pre-commit
+      - name: Cache prek
         uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306  # v5.0.3
         with:
-          path: ~/.cache/pre-commit
-          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+          path: ~/.cache/prek
+          key: prek-${{ hashFiles('.pre-commit-config.yaml') }}
       - name: Lint
         run: |
-          uv run pre-commit run --all-files
+          uv run prek run --all-files
         env:
           SKIP: no-commit-to-branch
       - name: Lint GitHub Actions
